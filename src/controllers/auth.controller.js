@@ -18,7 +18,7 @@ export async function register(req,res) {
     })
 
     if(isAlreadyRegistered){
-        res.status(409).json({
+        return res.status(409).json({
             message:"Username or email already exited"
         })
     }
@@ -46,4 +46,27 @@ export async function register(req,res) {
         },
         token
     })
+}
+
+export async function getMe(req,res) {
+    const token = req.headers.authorization?.split(" ")[ 1 ];
+
+    if(!token){
+        return res.status(401).json({
+            message:"token not found"
+        })
+    }
+
+    const decoded = jwt.verify(token, config.JWT_SECRET)
+
+    const user = await userModel.findById(decoded.id)
+
+    res.status(200).json({
+        message:"user fetached successfully",
+        user:{
+            username:user.username,
+            email:user.email,
+        }
+    })
+
 }

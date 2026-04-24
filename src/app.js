@@ -7,6 +7,7 @@ import authRouter from "./routes/auth.routes.js";
 app.use(express.json());
 app.use(morgan("dev"));
 
+//post /api/auth/register
 app.use("/api/auth", authRouter)
 
  export default app;
