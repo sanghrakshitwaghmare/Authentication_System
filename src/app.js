@@ -12,4 +12,6 @@ app.use(CookieParser());
 //post /api/auth/register
 app.use("/api/auth", authRouter)
 
+
+
  export default app;
